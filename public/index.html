@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi App Web</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>¡Mi Proyecto Docker funciona! 🐳</h1>
+  <p>Esta página está siendo servida por Node.js (Express).</p>
+  <p>Estado de la DB: <strong id="db-status">Conectando...</strong></p>
+
+  <script>
+    // Un script simple para verificar la conexión a la API
+    fetch('/ping-db')
+      .then(response => response.json())
+      .then(data => {
+        const statusEl = document.getElementById('db-status');
+        if (data.success) {
+          statusEl.textContent = '¡Conectada! 🎉';
+          statusEl.style.color = 'green';
+        } else {
+          statusEl.textContent = 'Error de conexión 😞';
+          statusEl.style.color = 'red';
+        }
+      })
+      .catch(err => {
+        const statusEl = document.getElementById('db-status');
+        statusEl.textContent = 'Error en el servidor API.';
+        statusEl.style.color = 'red';
+      });
+  </script>
+</body>
+</html>

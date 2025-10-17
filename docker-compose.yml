@@ -1,0 +1,32 @@
+# Ya no es necesaria la línea 'version: 3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "2999:2999"
+    volumes:
+      # El volumen local DEBE coincidir con tu WORKDIR
+      - .:/usr/src/web              # (<-- CAMBIO IMPORTANTE)
+      # El volumen anónimo también debe coincidir
+      - /usr/src/web/node_modules   # (<-- CAMBIO IMPORTANTE)
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=webpython
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.6
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: webpython
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+volumes:
+  mariadb_data:
