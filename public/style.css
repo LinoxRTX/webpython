@@ -5,13 +5,11 @@ body {
   color: #333;
   text-align: center;
 }
-
 h1 {
-  color: #005a9c; /* Un azul Docker */
+  color: #005a9c; 
 }
-
 #db-status {
   font-family: monospace;
   font-weight: bold;
-  color: #d9534f; /* Rojo por defecto */
+  color: #d9534f; 
 }

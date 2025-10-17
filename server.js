@@ -1,31 +1,19 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
 const path = require('path');
-
 const app = express();
 const PORT = 2999;
-
-// Configuración de la conexión a MariaDB (usando variables de entorno de Docker)
 const dbConfig = {
-  host: process.env.DB_HOST || 'db', // 'db' es el nombre del servicio en docker-compose
+  host: process.env.DB_HOST || 'db',
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || 'root',
   database: process.env.DB_NAME || 'webpython',
   port: 3306
 };
-
-// --- Middlewares ---
-// Servir archivos estáticos (HTML, CSS) desde la carpeta 'public'
 app.use(express.static(path.join(__dirname, 'public')));
-
-// --- Rutas ---
-
-// 1. Servir la página web principal
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
-// 2. Una API simple para verificar la conexión a la BD
 app.get('/ping-db', async (req, res) => {
   let connection;
   try {
@@ -40,8 +28,6 @@ app.get('/ping-db', async (req, res) => {
     if (connection) await connection.end();
   }
 });
-
-// --- Iniciar Servidor ---
 app.listen(PORT, () => {
   console.log(`Servidor Node.js corriendo en http://localhost:${PORT}`);
   console.log(`Host de la BD: ${dbConfig.host}`);

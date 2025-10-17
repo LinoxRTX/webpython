@@ -10,9 +10,7 @@
   <h1>¡Mi Proyecto Docker funciona! 🐳</h1>
   <p>Esta página está siendo servida por Node.js (Express).</p>
   <p>Estado de la DB: <strong id="db-status">Conectando...</strong></p>
-
   <script>
-    // Un script simple para verificar la conexión a la API
     fetch('/ping-db')
       .then(response => response.json())
       .then(data => {
